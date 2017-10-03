@@ -1,4 +1,4 @@
-package cz.fit.dpo.mvcshooter;
+package cz.fit.dpo.mvcshooter.entity;
 
 /**
  *

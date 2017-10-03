@@ -1,6 +1,6 @@
 package cz.fit.dpo.mvcshooter.view;
 
-import cz.fit.dpo.mvcshooter.Cannon;
+import cz.fit.dpo.mvcshooter.entity.Cannon;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
