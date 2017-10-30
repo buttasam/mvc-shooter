@@ -24,7 +24,7 @@ public class Canvas extends JPanel {
         this.setVisible(true);        
     }
     
-    public void thisIsHowYouForceGuiToRepaint() {        
+    public void forceRepaint() {
         repaint();
     }
 

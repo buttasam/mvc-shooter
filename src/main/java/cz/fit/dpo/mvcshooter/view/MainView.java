@@ -39,6 +39,6 @@ public class MainView implements Observer {
     @Override
     public void update() {
         logger.info("View updated.");
-        canvas.thisIsHowYouForceGuiToRepaint();
+        canvas.forceRepaint();
     }
 }
