@@ -9,7 +9,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by samik on 30.10.17.
  */
-public class MainView {
+public class MainView implements Observer {
 
     private GraphicsDrawer drawer;
     private MainWindow mainWindow;
@@ -26,4 +26,8 @@ public class MainView {
         this.mainWindow.addKeyListener(keyListener);
     }
 
+    @Override
+    public void update() {
+        System.out.println("view updated");
+    }
 }
