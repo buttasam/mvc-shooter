@@ -15,8 +15,8 @@ public class MainView {
 
 
     public MainView() {
-        GraphicsDrawer drawer = new GraphicsDrawer();
-        canvas = new Canvas(drawer, 0, 0, 500, 500);
-        MainWindow mainWindow = new MainWindow(canvas);
+        this.drawer = new GraphicsDrawer();
+        this.canvas = new Canvas(drawer, 0, 0, 500, 500);
+        this.mainWindow = new MainWindow(canvas);
     }
 }
