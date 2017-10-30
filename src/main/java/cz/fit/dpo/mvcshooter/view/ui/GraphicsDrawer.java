@@ -10,7 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * @author Ondrej Stuchlik
+ * @author Samuel Butta
  */
 public class GraphicsDrawer {
 

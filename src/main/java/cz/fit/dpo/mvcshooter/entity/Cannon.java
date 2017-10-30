@@ -1,8 +1,7 @@
 package cz.fit.dpo.mvcshooter.entity;
 
 /**
- *
- * @author Ondrej Stuchlik
+ * @author Samuel Butta
  */
 public class Cannon extends GameObject {
 
@@ -12,11 +11,11 @@ public class Cannon extends GameObject {
     }
 
     public int getX() {
-        return 100;
+        return x;
     }
 
     public int getY() {
-        return 100;
+        return y;
     }
     
 }

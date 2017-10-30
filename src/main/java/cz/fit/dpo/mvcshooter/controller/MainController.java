@@ -6,7 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 /**
- * Created by samik on 30.10.17.
+ * @author Samuel Butta
  */
 public class MainController extends KeyAdapter {
 
@@ -20,7 +20,17 @@ public class MainController extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         super.keyPressed(e);
-        System.out.println("key pressed: " + e.getKeyChar());
+
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                model.moveCannonUp();
+                break;
+            case KeyEvent.VK_DOWN:
+                model.moveCannonDown();
+                break;
+            default:
+        }
+
         model.notifyObservers();
 
     }

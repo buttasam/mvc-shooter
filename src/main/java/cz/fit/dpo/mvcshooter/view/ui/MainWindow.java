@@ -7,22 +7,24 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Ondrej Stuchlik
+ * @author Samuel Butta
  */
 public class MainWindow extends JFrame {
+
+    private static final String TITLE = "Shooter 0.1";
+
+    public static final int WINDOW_HEIGHT = 500;
+    public static final int WINDOW_WIDTH = 500;
 
 
     public MainWindow(Canvas canvas) {
         try {
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setTitle("MyShooter");
+            this.setTitle(TITLE);
             this.setResizable(false);
 
-            Dimension obrazovka = Toolkit.getDefaultToolkit().getScreenSize();
-            this.setLocation(
-                  (int) (obrazovka.getWidth() / 2 - 250),
-                  (int) (obrazovka.getHeight() / 2 - 250));
+            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+            this.setLocation((int) (dimension.getWidth() / 2 - 250), (int) (dimension.getHeight() / 2 - 250));
 
             this.add(canvas);
             this.pack();
@@ -32,13 +34,4 @@ public class MainWindow extends JFrame {
         }
     }
 
-    public void setKeyListener(KeyListener keyListener) {
-        this.addKeyListener(keyListener);
-    }
-
-    public void showHelp() {
-        JOptionPane.showMessageDialog(this, 
-              "Controls: \n"
-              + "here goes some description...");
-    }
 }

@@ -28,13 +28,19 @@ public class StorageModel implements Observable {
     List<Observer> observers = new ArrayList<>();
 
     public StorageModel() {
-        this.cannon = new Cannon(50, 50);
+        this.cannon = new Cannon(20, 240);
     }
 
-    // FIXME
-    public void moveConnonDown() {
-        cannonDao.moveDown(cannon);
+    public Cannon getCannon() {
+        return this.cannon;
+    }
 
+    public void moveCannonDown() {
+        cannonDao.moveDown(cannon);
+    }
+
+    public void moveCannonUp() {
+        cannonDao.moveUp(cannon);
     }
 
     @Override

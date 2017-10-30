@@ -6,13 +6,15 @@ import cz.fit.dpo.mvcshooter.view.MainView;
 
 /**
  * Zakladni spousteci trida
+ *
+ * @author Samuel Butta
  */
 public class App {
 
     public static void main(String[] args) {
         // creating MVC objects
-        MainView view = new MainView();
         StorageModel model = new StorageModel();
+        MainView view = new MainView(model);
         MainController controller = new MainController(model);
 
         // setting and binding

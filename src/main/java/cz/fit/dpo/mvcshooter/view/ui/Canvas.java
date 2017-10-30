@@ -7,12 +7,13 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 /**
- *
- * @author Ondrej Stuchlik
+ * @author Samuel Butta
  */
 public class Canvas extends JPanel {
 
     private GraphicsDrawer drawer;
+
+    private Cannon cannon;
 
     public Canvas(GraphicsDrawer drawer, int x, int y, int width, int height) {
         this.drawer = drawer;
@@ -27,10 +28,14 @@ public class Canvas extends JPanel {
         repaint();
     }
 
+    public void setCannon(Cannon cannon) {
+        this.cannon = cannon;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);    
-        drawer.drawCannon(g, new Cannon(50, 50));
+        drawer.drawCannon(g, cannon);
     }
     
 }
