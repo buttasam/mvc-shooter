@@ -4,8 +4,14 @@ package cz.fit.dpo.mvcshooter.entity;
  *
  * @author Ondrej Stuchlik
  */
-public class Cannon {
-   public int getX() {
+public class Cannon extends GameObject {
+
+
+    public Cannon(int x, int y) {
+        super(x, y);
+    }
+
+    public int getX() {
         return 100;
     }
 

@@ -1,4 +1,4 @@
-package cz.fit.dpo.mvcshooter.view;
+package cz.fit.dpo.mvcshooter.view.ui;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
 import java.awt.Graphics;

@@ -1,4 +1,4 @@
-package cz.fit.dpo.mvcshooter.view;
+package cz.fit.dpo.mvcshooter.view.ui;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
 import java.awt.Color;
@@ -10,10 +10,12 @@ import javax.swing.JPanel;
  *
  * @author Ondrej Stuchlik
  */
-public class Canvas extends JPanel { 
-    GraphicsDrawer drawer = new GraphicsDrawer();
+public class Canvas extends JPanel {
 
-    public Canvas(int x, int y, int width, int height) {
+    private GraphicsDrawer drawer;
+
+    public Canvas(GraphicsDrawer drawer, int x, int y, int width, int height) {
+        this.drawer = drawer;
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
         this.setLocation(x, y);
@@ -28,7 +30,7 @@ public class Canvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);    
-        drawer.drawCannon(g, new Cannon());
+        drawer.drawCannon(g, new Cannon(50, 50));
     }
     
 }

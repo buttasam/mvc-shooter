@@ -1,6 +1,7 @@
 package cz.fit.dpo.mvcshooter;
 
-import cz.fit.dpo.mvcshooter.view.MainWindow;
+import cz.fit.dpo.mvcshooter.view.MainView;
+import cz.fit.dpo.mvcshooter.view.ui.MainWindow;
 import javax.swing.SwingUtilities;
 
 /**
@@ -11,6 +12,7 @@ import javax.swing.SwingUtilities;
 public class App {
     
     public static void main(String[] args) {        
-        SwingUtilities.invokeLater(() ->  new MainWindow().setVisible(true));
+        MainView mainView = new MainView();
+
     }
 }

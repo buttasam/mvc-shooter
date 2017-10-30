@@ -7,4 +7,9 @@ package cz.fit.dpo.mvcshooter.entity;
  * @author Samuel Butta
  */
 public class Missile extends GameObject {
+
+    public Missile(int x, int y) {
+        super(x, y);
+    }
+
 }
