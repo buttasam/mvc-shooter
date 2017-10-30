@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 /**
  * Created by samik on 30.10.17.
  */
-public class KeyController extends KeyAdapter {
+public class MainController extends KeyAdapter {
 
 
     @Override
