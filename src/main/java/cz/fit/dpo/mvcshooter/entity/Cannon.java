@@ -5,6 +5,8 @@ package cz.fit.dpo.mvcshooter.entity;
  */
 public class Cannon extends GameObject {
 
+    private int speed = 3;
+
 
     public Cannon(int x, int y) {
         super(x, y);
@@ -17,5 +19,13 @@ public class Cannon extends GameObject {
     public int getY() {
         return y;
     }
-    
+
+    public void moveUp() {
+        y -= speed;
+    }
+
+    public void moveDown() {
+        y += speed;
+    }
+
 }

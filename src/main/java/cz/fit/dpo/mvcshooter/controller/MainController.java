@@ -1,6 +1,6 @@
 package cz.fit.dpo.mvcshooter.controller;
 
-import cz.fit.dpo.mvcshooter.model.StorageModel;
+import cz.fit.dpo.mvcshooter.model.Model;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -11,9 +11,9 @@ import java.awt.event.KeyEvent;
 public class MainController extends KeyAdapter {
 
 
-    private StorageModel model;
+    private Model model;
 
-    public MainController(StorageModel model) {
+    public MainController(Model model) {
         this.model = model;
     }
 

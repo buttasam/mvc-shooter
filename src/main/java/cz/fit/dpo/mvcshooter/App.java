@@ -1,7 +1,7 @@
 package cz.fit.dpo.mvcshooter;
 
 import cz.fit.dpo.mvcshooter.controller.MainController;
-import cz.fit.dpo.mvcshooter.model.StorageModel;
+import cz.fit.dpo.mvcshooter.model.Model;
 import cz.fit.dpo.mvcshooter.view.MainView;
 
 /**
@@ -13,7 +13,7 @@ public class App {
 
     public static void main(String[] args) {
         // creating MVC objects
-        StorageModel model = new StorageModel();
+        Model model = new Model();
         MainView view = new MainView(model);
         MainController controller = new MainController(model);
 
