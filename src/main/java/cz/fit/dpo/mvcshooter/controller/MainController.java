@@ -52,7 +52,6 @@ public class MainController extends KeyAdapter {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_SPACE:
                 model.missileReleased();
-                System.out.println(model.getMissiles());
                 break;
             default:
         }

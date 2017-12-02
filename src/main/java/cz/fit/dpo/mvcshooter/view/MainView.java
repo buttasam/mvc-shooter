@@ -5,8 +5,6 @@ import cz.fit.dpo.mvcshooter.view.ui.Canvas;
 import cz.fit.dpo.mvcshooter.view.ui.GraphicsDrawer;
 import cz.fit.dpo.mvcshooter.view.ui.MainWindow;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.awt.event.KeyListener;
 
@@ -15,10 +13,7 @@ import java.awt.event.KeyListener;
  */
 public class MainView implements Observer {
 
-    private static final Logger logger = LoggerFactory.getLogger(MainWindow.class);
-
     private Model model;
-
     private GraphicsDrawer drawer;
     private MainWindow mainWindow;
     private Canvas canvas;
@@ -39,8 +34,6 @@ public class MainView implements Observer {
 
     @Override
     public void update() {
-        //logger.info("View updated.");
-        // System.out.println("updates");
         canvas.forceRepaint();
     }
 }
