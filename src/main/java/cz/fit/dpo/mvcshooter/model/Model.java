@@ -1,9 +1,11 @@
 package cz.fit.dpo.mvcshooter.model;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
+import cz.fit.dpo.mvcshooter.entity.Enemy;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
 import cz.fit.dpo.mvcshooter.view.Observer;
+import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,11 @@ public class Model implements Observable {
      */
     private Cannon cannon;
     private List<Missile> missiles = new ArrayList<>();
+    private List<Enemy> enemies = new ArrayList<>();
 
 
     private Missile currentMissile;
+    int fpsCounter = 0;
 
 
     List<Observer> observers = new ArrayList<>();
@@ -46,9 +50,7 @@ public class Model implements Observable {
 
     @Override
     public void notifyObservers() {
-        observers.forEach(o -> {
-            o.update();
-        });
+        observers.forEach(Observer::update);
     }
 
     @Override
@@ -62,6 +64,7 @@ public class Model implements Observable {
 
         gameObjects.add(cannon);
         gameObjects.addAll(missiles);
+        gameObjects.addAll(enemies);
 
         return gameObjects;
     }
@@ -86,11 +89,18 @@ public class Model implements Observable {
     }
 
     public void tick() {
-        for (Missile m : missiles) {
-            m.move();
-        }
+        tickCount();
+        missiles.forEach(Missile::move);
+        addRandomEnemy(fpsCounter);
         notifyObservers();
         cleanUp();
+    }
+
+    private void tickCount() {
+        fpsCounter++;
+        if (fpsCounter == Integer.MAX_VALUE) {
+            fpsCounter = 0;
+        }
     }
 
 
@@ -104,4 +114,15 @@ public class Model implements Observable {
             missiles.removeAll(missileToRemove);
         }
     }
+
+    private void addRandomEnemy(int fpsCounter) {
+        Random r = new Random();
+
+        if ((r.nextInt(10) % 3 == 0) && fpsCounter % 100 == 0) {
+
+            Enemy enemy = new Enemy(r.nextInt(WindowConfig.WINDOW_WIDTH), r.nextInt(WindowConfig.WINDOW_WIDTH));
+            enemies.add(enemy);
+        }
+    }
+
 }

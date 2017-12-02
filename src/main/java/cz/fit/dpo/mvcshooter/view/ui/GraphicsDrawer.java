@@ -4,6 +4,7 @@ import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.Enemy;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
+import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
 import java.awt.*;
@@ -46,6 +47,15 @@ public class GraphicsDrawer implements Visitor {
     @Override
     public void visitMissile(Missile missile) {
         this.drawImage = missileImage;
+    }
+
+    @Override
+    public void visitEnemy(Enemy enemy) {
+        if(enemy.isUpgraded()) {
+            this.drawImage = enemyImage2;
+        } else {
+            this.drawImage = enemyImage1;
+        }
     }
 
     public void drawGameObject(Graphics g, GameObject gameObject) {

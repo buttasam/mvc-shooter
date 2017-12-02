@@ -12,7 +12,7 @@ public class Missile extends GameObject {
 
     private int speed = 1;
 
-    private double angle = 30;
+    private double angle = 45;
 
     private static final int SPEED_LIMIT = 30;
 
