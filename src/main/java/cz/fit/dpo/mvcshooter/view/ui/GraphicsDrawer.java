@@ -6,7 +6,7 @@ import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -40,7 +40,12 @@ public class GraphicsDrawer implements Visitor {
 
     @Override
     public void visitCannon(Cannon cannon) {
-        this.drawImage = enemyImage1;
+        this.drawImage = cannonImage;
+    }
+
+    @Override
+    public void visitMissile(Missile missile) {
+        this.drawImage = missileImage;
     }
 
     public void drawGameObject(Graphics g, GameObject gameObject) {
@@ -49,5 +54,8 @@ public class GraphicsDrawer implements Visitor {
         g.drawImage(drawImage,
                 gameObject.getX() - cannonImage.getWidth() / 2,
                 gameObject.getY() - cannonImage.getHeight() / 2, null);
+
+        // for smooth rendering
+        Toolkit.getDefaultToolkit().sync();
     }
 }

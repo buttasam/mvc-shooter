@@ -13,9 +13,6 @@ public class MainWindow extends JFrame {
 
     private static final String TITLE = "Shooter 0.1";
 
-    public static final int WINDOW_HEIGHT = 500;
-    public static final int WINDOW_WIDTH = 500;
-
 
     public MainWindow(Canvas canvas) {
         try {

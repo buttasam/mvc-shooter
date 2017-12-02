@@ -4,6 +4,7 @@ import cz.fit.dpo.mvcshooter.model.Model;
 import cz.fit.dpo.mvcshooter.view.ui.Canvas;
 import cz.fit.dpo.mvcshooter.view.ui.GraphicsDrawer;
 import cz.fit.dpo.mvcshooter.view.ui.MainWindow;
+import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public class MainView implements Observer {
 
     public MainView(Model model) {
         this.drawer = new GraphicsDrawer();
-        this.canvas = new Canvas(model, drawer, 0, 0, MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT);
+        this.canvas = new Canvas(model, drawer, 0, 0, WindowConfig.WINDOW_WIDTH, WindowConfig.WINDOW_HEIGHT);
         this.mainWindow = new MainWindow(canvas);
 
         this.model = model;
@@ -38,7 +39,8 @@ public class MainView implements Observer {
 
     @Override
     public void update() {
-        logger.info("View updated.");
+        //logger.info("View updated.");
+        // System.out.println("updates");
         canvas.forceRepaint();
     }
 }

@@ -11,7 +11,7 @@ import cz.fit.dpo.mvcshooter.view.MainView;
  */
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // creating MVC objects
         Model model = new Model();
         MainView view = new MainView(model);
@@ -20,5 +20,8 @@ public class App {
         // setting and binding
         model.addObserver(view);
         view.setKeyListener(controller);
+
+        controller.mainLoop();
+
     }
 }
