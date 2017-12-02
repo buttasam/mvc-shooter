@@ -1,5 +1,6 @@
 package cz.fit.dpo.mvcshooter.entity;
 
+import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
@@ -29,6 +30,7 @@ public class Missile extends GameObject {
         if (speed < SPEED_LIMIT) {
             speed += 1;
         }
+        Info.currentSpeed = speed;
     }
 
     public void move() {

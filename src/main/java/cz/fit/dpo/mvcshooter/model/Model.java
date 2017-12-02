@@ -4,6 +4,7 @@ import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.Enemy;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
+import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.view.Observer;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
@@ -74,6 +75,7 @@ public class Model implements Observable {
         if (currentMissile != null) {
             currentMissile.increaseSpeed();
         } else {
+            Info.currentSpeed = 0;
             currentMissile = new Missile(cannon.getX(), cannon.getY());
         }
     }
@@ -104,6 +106,7 @@ public class Model implements Observable {
             if ((e.collide(m.getX(), m.getY())) && e.getMissileCollided() != m) {
                 e.handleCollision();
                 e.setMissileCollided(m);
+                Info.score++;
             }
         }));
 

@@ -1,6 +1,7 @@
 package cz.fit.dpo.mvcshooter.view.ui;
 
 import cz.fit.dpo.mvcshooter.entity.*;
+import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
@@ -67,6 +68,10 @@ public class GraphicsDrawer implements Visitor {
         g.drawImage(drawImage,
                 gameObject.getX() - drawImage.getWidth() / 2,
                 gameObject.getY() - drawImage.getHeight() / 2, null);
+
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Score: " + Info.score, 5, 20);
+        g.drawString("Speed: " + Info.currentSpeed, 5, 45);
 
         // for smooth rendering
         Toolkit.getDefaultToolkit().sync();
