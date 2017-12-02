@@ -1,9 +1,6 @@
 package cz.fit.dpo.mvcshooter.view.ui;
 
-import cz.fit.dpo.mvcshooter.entity.Cannon;
-import cz.fit.dpo.mvcshooter.entity.Enemy;
-import cz.fit.dpo.mvcshooter.entity.GameObject;
-import cz.fit.dpo.mvcshooter.entity.Missile;
+import cz.fit.dpo.mvcshooter.entity.*;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
@@ -51,10 +48,16 @@ public class GraphicsDrawer implements Visitor {
 
     @Override
     public void visitEnemy(Enemy enemy) {
-        if(enemy.isUpgraded()) {
-            this.drawImage = enemyImage2;
-        } else {
-            this.drawImage = enemyImage1;
+        switch (enemy.getEnemyType()) {
+            case BASIC:
+                this.drawImage = enemyImage1;
+                break;
+            case ADVANCED:
+                this.drawImage = enemyImage2;
+                break;
+            case DAMAGED:
+                this.drawImage = collisionImage;
+                break;
         }
     }
 

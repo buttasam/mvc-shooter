@@ -8,18 +8,18 @@ import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
  */
 public class Enemy extends GameObject {
 
-    private boolean upgraded;
+    private EnemyType enemyType;
     private boolean alive;
+    private Missile missileCollided;
 
     public Enemy(int x, int y) {
         super(x, y);
         alive = true;
         if (Probability.oneHalf()) {
-            upgraded = false;
+            enemyType = EnemyType.ADVANCED;
         } else {
-            upgraded = true;
+            enemyType = EnemyType.BASIC;
         }
-
     }
 
     @Override
@@ -27,12 +27,13 @@ public class Enemy extends GameObject {
         visitor.visitEnemy(this);
     }
 
-    public boolean isUpgraded() {
-        return upgraded;
+
+    public EnemyType getEnemyType() {
+        return enemyType;
     }
 
-    public void setUpgraded(boolean upgraded) {
-        this.upgraded = upgraded;
+    public void setEnemyType(EnemyType enemyType) {
+        this.enemyType = enemyType;
     }
 
     public boolean collide(int x, int y) {
@@ -49,5 +50,38 @@ public class Enemy extends GameObject {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public void handleCollision() {
+        switch (enemyType) {
+            case BASIC:
+                setAlive(false);
+                break;
+            case ADVANCED:
+                setEnemyType(EnemyType.DAMAGED);
+                break;
+            case DAMAGED:
+                setAlive(false);
+                break;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Enemy{" +
+                "enemyType=" + enemyType +
+                ", alive=" + alive +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
+
+    public Missile getMissileCollided() {
+        return missileCollided;
+    }
+
+    public void setMissileCollided(Missile missileCollided) {
+        this.missileCollided = missileCollided;
     }
 }

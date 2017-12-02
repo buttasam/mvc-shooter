@@ -101,8 +101,9 @@ public class Model implements Observable {
     private void checkCollisions() {
 
         missiles.forEach(m -> enemies.forEach(e -> {
-            if (e.collide(m.getX(), m.getY())) {
-                e.setAlive(false);
+            if ((e.collide(m.getX(), m.getY())) && e.getMissileCollided() != m) {
+                e.handleCollision();
+                e.setMissileCollided(m);
             }
         }));
 
@@ -133,10 +134,6 @@ public class Model implements Observable {
         enemies.removeAll(enemiesToDelete);
     }
 
-    private void removeMissile(Missile missile) {
-        missile.setX(-50);
-        missile.setY(-50);
-    }
 
     private void addRandomEnemy(int fpsCounter) {
         Random r = new Random();
