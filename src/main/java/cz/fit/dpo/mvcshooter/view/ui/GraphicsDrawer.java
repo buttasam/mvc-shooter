@@ -62,8 +62,8 @@ public class GraphicsDrawer implements Visitor {
         gameObject.accept(this);
 
         g.drawImage(drawImage,
-                gameObject.getX() - cannonImage.getWidth() / 2,
-                gameObject.getY() - cannonImage.getHeight() / 2, null);
+                gameObject.getX() - drawImage.getWidth() / 2,
+                gameObject.getY() - drawImage.getHeight() / 2, null);
 
         // for smooth rendering
         Toolkit.getDefaultToolkit().sync();

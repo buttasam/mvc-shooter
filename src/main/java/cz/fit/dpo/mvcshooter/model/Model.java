@@ -4,6 +4,7 @@ import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.Enemy;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
+import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.view.Observer;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
@@ -73,7 +74,6 @@ public class Model implements Observable {
         if (currentMissile != null) {
             currentMissile.increaseSpeed();
         } else {
-            Random r = new Random();
             currentMissile = new Missile(cannon.getX(), cannon.getY());
         }
     }
@@ -91,9 +91,22 @@ public class Model implements Observable {
     public void tick() {
         tickCount();
         missiles.forEach(Missile::move);
+        checkCollisions();
+        removeEnemies();
         addRandomEnemy(fpsCounter);
         notifyObservers();
         cleanUp();
+    }
+
+    private void checkCollisions() {
+
+        missiles.forEach(m -> enemies.forEach(e -> {
+            if (e.collide(m.getX(), m.getY())) {
+                e.setAlive(false);
+            }
+        }));
+
+
     }
 
     private void tickCount() {
@@ -109,17 +122,26 @@ public class Model implements Observable {
     }
 
     private void removeMissiles() {
-        if (missiles.size() >= 50) {
+        if (missiles.size() >= 5) {
             List<Missile> missileToRemove = missiles.stream().filter(m -> m.isOutOfWindow()).collect(Collectors.toList());
             missiles.removeAll(missileToRemove);
         }
     }
 
+    public void removeEnemies() {
+        List<Enemy> enemiesToDelete = enemies.stream().filter(e -> !e.isAlive()).collect(Collectors.toList());
+        enemies.removeAll(enemiesToDelete);
+    }
+
+    private void removeMissile(Missile missile) {
+        missile.setX(-50);
+        missile.setY(-50);
+    }
+
     private void addRandomEnemy(int fpsCounter) {
         Random r = new Random();
 
-        if ((r.nextInt(10) % 3 == 0) && fpsCounter % 100 == 0) {
-
+        if (Probability.oneThird() && fpsCounter % 100 == 0) {
             Enemy enemy = new Enemy(r.nextInt(WindowConfig.WINDOW_WIDTH), r.nextInt(WindowConfig.WINDOW_WIDTH));
             enemies.add(enemy);
         }
