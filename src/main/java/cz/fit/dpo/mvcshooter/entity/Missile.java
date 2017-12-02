@@ -1,5 +1,7 @@
 package cz.fit.dpo.mvcshooter.entity;
 
+import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
+
 /**
  *
  * Reprezentace strely.
@@ -12,4 +14,8 @@ public class Missile extends GameObject {
         super(x, y);
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+
+    }
 }

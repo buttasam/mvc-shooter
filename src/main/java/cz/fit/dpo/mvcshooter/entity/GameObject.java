@@ -1,12 +1,15 @@
 package cz.fit.dpo.mvcshooter.entity;
 
+import cz.fit.dpo.mvcshooter.model.visitor.Visitable;
+import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
+
 /**
  *
  * Zakladni abstraktri trida pro herni objekt.
  *
  * @author Samuel Butta
  */
-abstract class GameObject {
+public class GameObject implements Visitable {
 
     protected int x, y;
 
@@ -29,5 +32,10 @@ abstract class GameObject {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+
     }
 }

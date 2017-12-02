@@ -1,6 +1,9 @@
 package cz.fit.dpo.mvcshooter.view.ui;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
+import cz.fit.dpo.mvcshooter.entity.GameObject;
+import cz.fit.dpo.mvcshooter.model.Model;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -15,7 +18,10 @@ public class Canvas extends JPanel {
 
     private Cannon cannon;
 
-    public Canvas(GraphicsDrawer drawer, int x, int y, int width, int height) {
+    private Model model; // TODO model proxy
+
+    public Canvas(Model model, GraphicsDrawer drawer, int x, int y, int width, int height) {
+        this.model = model;
         this.drawer = drawer;
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
@@ -34,8 +40,11 @@ public class Canvas extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);    
-        drawer.drawCannon(g, cannon);
+        super.paintComponent(g);
+
+        for(GameObject gameObject : model.allGameObjects()) {
+            drawer.drawGameObject(g, gameObject);
+        }
     }
     
 }

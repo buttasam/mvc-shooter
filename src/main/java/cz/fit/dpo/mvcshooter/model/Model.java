@@ -1,6 +1,7 @@
 package cz.fit.dpo.mvcshooter.model;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
+import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.view.Observer;
 
 import java.util.ArrayList;
@@ -46,5 +47,14 @@ public class Model implements Observable {
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
+    }
+
+
+    public List<GameObject> allGameObjects() {
+        List<GameObject> gameObjects = new ArrayList<>();
+
+        gameObjects.add(cannon);
+
+        return gameObjects;
     }
 }

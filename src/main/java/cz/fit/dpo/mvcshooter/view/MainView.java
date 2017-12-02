@@ -25,7 +25,7 @@ public class MainView implements Observer {
 
     public MainView(Model model) {
         this.drawer = new GraphicsDrawer();
-        this.canvas = new Canvas(drawer, 0, 0, MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT);
+        this.canvas = new Canvas(model, drawer, 0, 0, MainWindow.WINDOW_WIDTH, MainWindow.WINDOW_HEIGHT);
         this.mainWindow = new MainWindow(canvas);
 
         this.model = model;

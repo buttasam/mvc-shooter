@@ -2,7 +2,9 @@ package cz.fit.dpo.mvcshooter.view.ui;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.Enemy;
+import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
+import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -12,7 +14,9 @@ import javax.imageio.ImageIO;
 /**
  * @author Samuel Butta
  */
-public class GraphicsDrawer {
+public class GraphicsDrawer implements Visitor {
+
+    private BufferedImage drawImage;
 
     private BufferedImage cannonImage;
     private BufferedImage enemyImage1;
@@ -34,18 +38,16 @@ public class GraphicsDrawer {
     }
 
 
-    public void drawCannon(Graphics g, Cannon cannon) {
-        g.drawImage(cannonImage,
-                cannon.getX() - cannonImage.getWidth() / 2,
-                cannon.getY() - cannonImage.getHeight() / 2, null);
+    @Override
+    public void visitCannon(Cannon cannon) {
+        this.drawImage = enemyImage1;
     }
 
-    public void drawMissile(Graphics g, Missile missile) {
+    public void drawGameObject(Graphics g, GameObject gameObject) {
+        gameObject.accept(this);
 
+        g.drawImage(drawImage,
+                gameObject.getX() - cannonImage.getWidth() / 2,
+                gameObject.getY() - cannonImage.getHeight() / 2, null);
     }
-
-    public void drawEnemy(Graphics g, Enemy enemy) {
-
-    }
-
 }
