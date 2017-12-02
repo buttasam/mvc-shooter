@@ -17,6 +17,8 @@ public class Missile extends GameObject {
     private double time = 0;
     private int angle ;
 
+    private double BALISTIC_COEFICIENT = 0.003;
+
     private static final int SPEED_LIMIT = 100;
 
     public Missile(int x, int y, int angle) {
@@ -42,8 +44,8 @@ public class Missile extends GameObject {
         time += 1;
 
         double radians = Math.toRadians(angle);
-        x = (int)((startX + (speed)*time*Math.cos(radians))) ;
-        y = (int)(startY + (speed)*time*Math.sin(radians) + (1)*0.01*(time*time));
+        x = (int)((startX + (speed)*time*Math.cos(radians)) -  BALISTIC_COEFICIENT * (time*time)) ;
+        y = (int)((startY + (speed)*time*Math.sin(radians)) + 0.01*(time*time));
     }
 
     @Override
