@@ -35,7 +35,7 @@ public class Model implements Observable {
     List<Observer> observers = new ArrayList<>();
 
     public Model() {
-        this.cannon = new Cannon(20, 240);
+        this.cannon = new Cannon(20, 240, -45);
     }
 
     public Cannon getCannon() {
@@ -76,7 +76,7 @@ public class Model implements Observable {
             currentMissile.increaseSpeed();
         } else {
             Info.currentSpeed = 1;
-            currentMissile = new Missile(cannon.getX(), cannon.getY());
+            currentMissile = new Missile(cannon.getX(), cannon.getY(), cannon.getAngle());
         }
     }
 
@@ -145,4 +145,11 @@ public class Model implements Observable {
         }
     }
 
+    public void rotateCannonLeft() {
+        cannon.rotateLeft();
+    }
+
+    public void rotateCannonRight() {
+        cannon.rotateRight();
+    }
 }

@@ -31,9 +31,14 @@ public class MainController extends KeyAdapter {
             case KeyEvent.VK_DOWN:
                 model.moveCannonDown();
                 break;
-            case KeyEvent.VK_SPACE: {
+            case KeyEvent.VK_SPACE:
                 model.missilePressed();
-            }
+                break;
+            case KeyEvent.VK_LEFT:
+                model.rotateCannonLeft();
+                break;
+            case KeyEvent.VK_RIGHT:
+                model.rotateCannonRight();
                 break;
             default:
         }

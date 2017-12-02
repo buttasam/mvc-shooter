@@ -15,14 +15,15 @@ public class Missile extends GameObject {
     private final int startY;
     private double speed = 1;
     private double time = 0;
-    private double angle = -45 ;
+    private int angle ;
 
     private static final int SPEED_LIMIT = 100;
 
-    public Missile(int x, int y) {
+    public Missile(int x, int y, int angle) {
         super(x, y);
         this.startX = x;
         this.startY = y;
+        this.angle = angle;
     }
 
     @Override
@@ -39,13 +40,10 @@ public class Missile extends GameObject {
 
     public void move() {
         time += 1;
-        System.out.println(time);
 
         double radians = Math.toRadians(angle);
         x = (int)((startX + (speed)*time*Math.cos(radians))) ;
         y = (int)(startY + (speed)*time*Math.sin(radians) + (1)*0.01*(time*time));
-
-        System.out.println(x + ":" + y);
     }
 
     @Override
