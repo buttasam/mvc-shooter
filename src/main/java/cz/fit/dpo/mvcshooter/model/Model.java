@@ -75,7 +75,7 @@ public class Model implements Observable {
         if (currentMissile != null) {
             currentMissile.increaseSpeed();
         } else {
-            Info.currentSpeed = 0;
+            Info.currentSpeed = 1;
             currentMissile = new Missile(cannon.getX(), cannon.getY());
         }
     }
@@ -126,10 +126,8 @@ public class Model implements Observable {
     }
 
     private void removeMissiles() {
-        if (missiles.size() >= 5) {
-            List<Missile> missileToRemove = missiles.stream().filter(m -> m.isOutOfWindow()).collect(Collectors.toList());
-            missiles.removeAll(missileToRemove);
-        }
+        List<Missile> missileToRemove = missiles.stream().filter(m -> m.isOutOfWindow()).collect(Collectors.toList());
+        missiles.removeAll(missileToRemove);
     }
 
     public void removeEnemies() {

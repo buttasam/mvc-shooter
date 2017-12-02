@@ -7,6 +7,6 @@ public class Info {
 
     public static int score = 0;
 
-    public static int currentSpeed = 0;
+    public static int currentSpeed = 1;
 
 }

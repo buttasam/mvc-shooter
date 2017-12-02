@@ -45,6 +45,7 @@ public class GraphicsDrawer implements Visitor {
     @Override
     public void visitMissile(Missile missile) {
         this.drawImage = missileImage;
+        System.out.println(missile);
     }
 
     @Override
