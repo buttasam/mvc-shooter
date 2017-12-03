@@ -40,6 +40,12 @@ public class MainController extends KeyAdapter {
             case KeyEvent.VK_RIGHT:
                 model.rotateCannonRight();
                 break;
+            case KeyEvent.VK_R:
+                model.setRealisticStrategy();
+                break;
+            case KeyEvent.VK_S:
+                model.setSimpleStrategy();
+                break;
             default:
         }
 

@@ -17,15 +17,17 @@ public class Missile extends GameObject {
     private double speed = 1;
     private double time = 0;
     private int angle;
+    private Strategy strategy;
 
 
     private static final int SPEED_LIMIT = 100;
 
-    public Missile(int x, int y, int angle) {
+    public Missile(int x, int y, int angle, Strategy strategy) {
         super(x, y);
         this.startX = x;
         this.startY = y;
         this.angle = angle;
+        this.strategy = strategy;
     }
 
     @Override
@@ -40,7 +42,7 @@ public class Missile extends GameObject {
         }
     }
 
-    public void move(Strategy strategy) {
+    public void move() {
         time += 1;
         x = strategy.calculateX(startX, angle, speed, time);
         y = strategy.calculateY(startY, angle, speed, time);

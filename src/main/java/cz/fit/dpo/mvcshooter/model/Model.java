@@ -6,6 +6,7 @@ import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
 import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
+import cz.fit.dpo.mvcshooter.model.strategy.RealisticStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.SimpleStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.Strategy;
 import cz.fit.dpo.mvcshooter.view.Observer;
@@ -80,7 +81,7 @@ public class Model implements Observable {
             currentMissile.increaseSpeed();
         } else {
             Info.currentSpeed = 1;
-            currentMissile = new Missile(cannon.getX(), cannon.getY(), cannon.getAngle());
+            currentMissile = new Missile(cannon.getX(), cannon.getY(), cannon.getAngle(), this.strategy);
         }
     }
 
@@ -96,7 +97,7 @@ public class Model implements Observable {
 
     public void tick() {
         tickCount();
-        missiles.forEach(m -> m.move(strategy));
+        missiles.forEach(Missile::move);
         checkCollisions();
         removeEnemies();
         addRandomEnemy(fpsCounter);
@@ -155,5 +156,13 @@ public class Model implements Observable {
 
     public void rotateCannonRight() {
         cannon.rotateRight();
+    }
+
+    public void setRealisticStrategy() {
+        this.strategy = new RealisticStrategy();
+    }
+
+    public void setSimpleStrategy() {
+        this.strategy = new SimpleStrategy();
     }
 }
