@@ -6,6 +6,9 @@ import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
 import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
+import cz.fit.dpo.mvcshooter.model.state.CannonState;
+import cz.fit.dpo.mvcshooter.model.state.DoubleShootingState;
+import cz.fit.dpo.mvcshooter.model.state.SingleShootingState;
 import cz.fit.dpo.mvcshooter.model.strategy.RealisticStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.SimpleStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.Strategy;
@@ -32,7 +35,8 @@ public class Model implements Observable {
 
 
     private Strategy strategy;
-    private Missile currentMissile;
+    private CannonState cannonState;
+    private List<Missile> currentMissiles = new ArrayList<>();
     int fpsCounter = 0;
 
 
@@ -41,6 +45,7 @@ public class Model implements Observable {
     public Model() {
         this.cannon = new Cannon(20, 240, -45);
         this.strategy = new SimpleStrategy();
+        this.cannonState = new DoubleShootingState();
     }
 
     public Cannon getCannon() {
@@ -77,17 +82,19 @@ public class Model implements Observable {
     }
 
     public void missilePressed() {
-        if (currentMissile != null) {
-            currentMissile.increaseSpeed();
+        if (!currentMissiles.isEmpty()) {
+            currentMissiles.forEach(Missile::increaseSpeed);
         } else {
             Info.currentSpeed = 1;
-            currentMissile = new Missile(cannon.getX(), cannon.getY(), cannon.getAngle(), this.strategy);
+            for (int i = 0; i < cannonState.numberOfMissiles(); i++) {
+                currentMissiles.add(new Missile(cannon.getX(), cannon.getY(), cannon.getAngle() / (i + 1), this.strategy));
+            }
         }
     }
 
     public void missileReleased() {
-        missiles.add(currentMissile);
-        currentMissile = null;
+        missiles.addAll(currentMissiles);
+        currentMissiles = new ArrayList<>();
     }
 
 
