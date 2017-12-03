@@ -4,6 +4,7 @@ import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.Enemy;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
+import cz.fit.dpo.mvcshooter.model.command.GameCommand;
 import cz.fit.dpo.mvcshooter.model.factory.AbstractModeFactory;
 import cz.fit.dpo.mvcshooter.model.factory.RealisticModeFactory;
 import cz.fit.dpo.mvcshooter.model.helper.Info;
@@ -109,6 +110,12 @@ public class ModelImpl implements Model {
         return missiles;
     }
 
+    @Override
+    public void tick(GameCommand command) {
+        command.execute(this);
+        tick();
+    }
+
     public void tick() {
         missiles.forEach(Missile::move);
         enemies.forEach(Enemy::move);
@@ -179,7 +186,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void loadMemento() {
+    public synchronized void loadMemento() {
         try {
             Memento memento = mementoStorage.lastMemento();
             cannon = memento.getCannon();
@@ -194,7 +201,7 @@ public class ModelImpl implements Model {
     }
 
     @Override
-    public void saveMemento() {
+    public synchronized void saveMemento() {
         Memento memento = new Memento();
         memento.setCannon(SerializationUtils.clone(cannon));
         memento.setCurrentMissiles(SerializationUtils.clone(currentMissiles));

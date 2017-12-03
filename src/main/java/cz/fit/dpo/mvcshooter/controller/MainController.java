@@ -1,10 +1,12 @@
 package cz.fit.dpo.mvcshooter.controller;
 
 import cz.fit.dpo.mvcshooter.model.Model;
-import cz.fit.dpo.mvcshooter.model.ModelImpl;
+import cz.fit.dpo.mvcshooter.model.command.*;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,6 +17,7 @@ public class MainController extends KeyAdapter {
 
 
     private Model model;
+    private Queue<GameCommand> commands = new PriorityQueue<>();
 
     public MainController(Model model) {
         this.model = model;
@@ -27,34 +30,31 @@ public class MainController extends KeyAdapter {
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                model.moveCannonUp();
+                createCommand(new CannonUpCommand());
                 break;
             case KeyEvent.VK_DOWN:
-                model.moveCannonDown();
+                createCommand(new CannonDownCommand());
                 break;
             case KeyEvent.VK_SPACE:
                 model.missilePressed();
                 break;
             case KeyEvent.VK_LEFT:
-                model.rotateCannonLeft();
+                createCommand(new CannonRotationLeftCommand());
                 break;
             case KeyEvent.VK_RIGHT:
-                model.rotateCannonRight();
+                createCommand(new CannonRotationRightCommand());
                 break;
             case KeyEvent.VK_R:
-                model.setRealisticStrategy();
+                createCommand(new RealisticStrategyCommand());
                 break;
             case KeyEvent.VK_S:
-                model.setSimpleStrategy();
+                createCommand(new SimpleStrategyCommand());
                 break;
-            case KeyEvent.VK_F2:
-                model.saveMemento();
-                break;
-            case KeyEvent.VK_F3:
-                model.loadMemento();
+            case KeyEvent.VK_BACK_SPACE:
+                createCommand(new StepBackCommand());
                 break;
             case KeyEvent.VK_SHIFT:
-                model.changeCannonState();
+                createCommand(new ChangeCannonCommand());
                 break;
             default:
         }
@@ -63,11 +63,16 @@ public class MainController extends KeyAdapter {
 
     }
 
+    public void createCommand(GameCommand command) {
+        commands.add(command);
+        model.saveMemento();
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_SPACE:
-                model.missileReleased();
+                createCommand(new ShootCommand());
                 break;
             default:
         }
@@ -79,7 +84,11 @@ public class MainController extends KeyAdapter {
         t.schedule(new TimerTask() {
             @Override
             public void run() {
-                model.tick();
+                if (commands.isEmpty()) {
+                    model.tick();
+                } else {
+                    model.tick(commands.poll());
+                }
 
             }
         }, 0, 1000 / 120);

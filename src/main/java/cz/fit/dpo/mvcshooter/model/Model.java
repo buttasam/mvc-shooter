@@ -2,6 +2,7 @@ package cz.fit.dpo.mvcshooter.model;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
+import cz.fit.dpo.mvcshooter.model.command.GameCommand;
 import cz.fit.dpo.mvcshooter.model.memento.Originator;
 import cz.fit.dpo.mvcshooter.model.observer.Observable;
 
@@ -30,6 +31,8 @@ public interface Model extends Observable, Originator {
     void missileReleased();
 
     void tick();
+
+    void tick(GameCommand gameCommand);
 
     List<GameObject> allGameObjects();
 

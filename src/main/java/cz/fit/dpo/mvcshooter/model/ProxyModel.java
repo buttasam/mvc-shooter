@@ -2,6 +2,7 @@ package cz.fit.dpo.mvcshooter.model;
 
 import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
+import cz.fit.dpo.mvcshooter.model.command.GameCommand;
 import cz.fit.dpo.mvcshooter.model.observer.Observer;
 
 import java.util.List;
@@ -85,6 +86,11 @@ public class ProxyModel implements Model {
     @Override
     public void tick() {
         model.tick();
+    }
+
+    @Override
+    public void tick(GameCommand gameCommand) {
+        model.tick(gameCommand);
     }
 
     @Override
