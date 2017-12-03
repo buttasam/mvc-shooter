@@ -1,6 +1,7 @@
 package cz.fit.dpo.mvcshooter.view;
 
 import cz.fit.dpo.mvcshooter.model.Model;
+import cz.fit.dpo.mvcshooter.model.observer.Observer;
 import cz.fit.dpo.mvcshooter.view.ui.Canvas;
 import cz.fit.dpo.mvcshooter.view.ui.GraphicsDrawer;
 import cz.fit.dpo.mvcshooter.view.ui.MainWindow;
@@ -13,7 +14,6 @@ import java.awt.event.KeyListener;
  */
 public class MainView implements Observer {
 
-    private Model model;
     private GraphicsDrawer drawer;
     private MainWindow mainWindow;
     private Canvas canvas;
@@ -24,7 +24,6 @@ public class MainView implements Observer {
         this.canvas = new Canvas(model, drawer, 0, 0, WindowConfig.WINDOW_WIDTH, WindowConfig.WINDOW_HEIGHT);
         this.mainWindow = new MainWindow(canvas);
 
-        this.model = model;
         canvas.setCannon(model.getCannon());
     }
 

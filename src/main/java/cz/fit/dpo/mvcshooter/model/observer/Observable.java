@@ -1,6 +1,6 @@
-package cz.fit.dpo.mvcshooter.model;
+package cz.fit.dpo.mvcshooter.model.observer;
 
-import cz.fit.dpo.mvcshooter.view.Observer;
+import cz.fit.dpo.mvcshooter.model.observer.Observer;
 
 /**
  * @author Samuel Butta

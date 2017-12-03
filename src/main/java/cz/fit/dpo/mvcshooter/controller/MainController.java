@@ -1,6 +1,7 @@
 package cz.fit.dpo.mvcshooter.controller;
 
 import cz.fit.dpo.mvcshooter.model.Model;
+import cz.fit.dpo.mvcshooter.model.ModelImpl;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

@@ -1,4 +1,4 @@
-package cz.fit.dpo.mvcshooter.view;
+package cz.fit.dpo.mvcshooter.model.observer;
 
 /**
  * @author Samuel Butta

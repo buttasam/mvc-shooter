@@ -4,10 +4,8 @@ import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.model.Model;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author Samuel Butta

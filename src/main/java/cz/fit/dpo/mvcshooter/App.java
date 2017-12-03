@@ -2,6 +2,8 @@ package cz.fit.dpo.mvcshooter;
 
 import cz.fit.dpo.mvcshooter.controller.MainController;
 import cz.fit.dpo.mvcshooter.model.Model;
+import cz.fit.dpo.mvcshooter.model.ModelImpl;
+import cz.fit.dpo.mvcshooter.model.ProxyModel;
 import cz.fit.dpo.mvcshooter.view.MainView;
 
 /**
@@ -13,12 +15,12 @@ public class App {
 
     public static void main(String[] args) throws InterruptedException {
         // creating MVC objects
-        Model model = new Model();
-        MainView view = new MainView(model);
-        MainController controller = new MainController(model);
+        Model modelProxy = new ProxyModel();
+        MainView view = new MainView(modelProxy);
+        MainController controller = new MainController(modelProxy);
 
         // setting and binding
-        model.addObserver(view);
+        modelProxy.addObserver(view);
         view.setKeyListener(controller);
 
         controller.mainLoop();
