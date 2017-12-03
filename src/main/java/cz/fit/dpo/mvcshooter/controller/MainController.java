@@ -5,10 +5,10 @@ import cz.fit.dpo.mvcshooter.model.command.*;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Samuel Butta
@@ -17,7 +17,7 @@ public class MainController extends KeyAdapter {
 
 
     private Model model;
-    private Queue<GameCommand> commands = new PriorityQueue<>();
+    private Queue<GameCommand> commands = new LinkedBlockingQueue<>();
 
     public MainController(Model model) {
         this.model = model;
@@ -51,7 +51,7 @@ public class MainController extends KeyAdapter {
                 createCommand(new SimpleStrategyCommand());
                 break;
             case KeyEvent.VK_BACK_SPACE:
-                createCommand(new StepBackCommand());
+                model.loadMemento();
                 break;
             case KeyEvent.VK_SHIFT:
                 createCommand(new ChangeCannonCommand());
