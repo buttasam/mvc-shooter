@@ -1,9 +1,11 @@
 package cz.fit.dpo.mvcshooter.model.strategy.missile;
 
+import java.io.Serializable;
+
 /**
  * @author Samuel Butta
  */
-public class RealisticMissileStrategy implements MissileStrategy {
+public class RealisticMissileStrategy implements MissileStrategy, Serializable {
 
     private double BALISTIC_COEFFICIENT = 0.003;
 

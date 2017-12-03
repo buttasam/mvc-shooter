@@ -46,6 +46,12 @@ public class MainController extends KeyAdapter {
             case KeyEvent.VK_S:
                 model.setSimpleStrategy();
                 break;
+            case KeyEvent.VK_F2:
+                model.saveMemento();
+                break;
+            case KeyEvent.VK_F3:
+                model.loadMemento();
+                break;
             default:
         }
 

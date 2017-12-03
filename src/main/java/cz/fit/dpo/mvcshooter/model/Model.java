@@ -8,6 +8,9 @@ import cz.fit.dpo.mvcshooter.model.factory.AbstractModeFactory;
 import cz.fit.dpo.mvcshooter.model.factory.RealisticModeFactory;
 import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
+import cz.fit.dpo.mvcshooter.model.memento.Memento;
+import cz.fit.dpo.mvcshooter.model.memento.MementoStorage;
+import cz.fit.dpo.mvcshooter.model.memento.Originator;
 import cz.fit.dpo.mvcshooter.model.state.CannonState;
 import cz.fit.dpo.mvcshooter.model.state.DoubleShootingState;
 import cz.fit.dpo.mvcshooter.model.strategy.enemy.EnemyStrategy;
@@ -16,8 +19,10 @@ import cz.fit.dpo.mvcshooter.model.strategy.missile.RealisticMissileStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.missile.SimpleMissileStrategy;
 import cz.fit.dpo.mvcshooter.view.Observer;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
+import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -25,26 +30,28 @@ import java.util.stream.Collectors;
 /**
  * @author Samuel Butta
  */
-public class Model implements Observable {
+public class Model implements Observable, Originator {
 
 
     /**
      * Stored objects
      */
     private Cannon cannon;
-    private List<Missile> missiles = new ArrayList<>();
-    private List<Enemy> enemies = new ArrayList<>();
+    private ArrayList<Missile> missiles = new ArrayList<>();
+    private ArrayList<Enemy> enemies = new ArrayList<>();
+    private ArrayList<Missile> currentMissiles = new ArrayList<>();
 
 
     private MissileStrategy missileStrategy;
     private EnemyStrategy enemyStrategy;
 
     private CannonState cannonState;
-    private List<Missile> currentMissiles = new ArrayList<>();
     int fpsCounter = 0;
 
 
     List<Observer> observers = new ArrayList<>();
+
+    private MementoStorage mementoStorage = new MementoStorage();
 
     public Model() {
         this.cannon = new Cannon(20, 240, -45);
@@ -183,5 +190,31 @@ public class Model implements Observable {
     public void setSimpleStrategy() {
         this.missileStrategy = new SimpleMissileStrategy();
         Info.strategy = "Simple";
+    }
+
+    @Override
+    public void loadMemento() {
+        try {
+            Memento memento = mementoStorage.lastMemento();
+            cannon = memento.getCannon();
+            currentMissiles = memento.getCurrentMissiles();
+            enemies = memento.getEnemies();
+            missiles = memento.getMissiles();
+
+            notifyObservers();
+        } catch (EmptyStackException e) {
+            System.out.println("No saved memento");
+        }
+    }
+
+    @Override
+    public void saveMemento() {
+        Memento memento = new Memento();
+        memento.setCannon(SerializationUtils.clone(cannon));
+        memento.setCurrentMissiles(SerializationUtils.clone(currentMissiles));
+        memento.setEnemies(SerializationUtils.clone(enemies));
+        memento.setMissiles(SerializationUtils.clone(missiles));
+
+        mementoStorage.saveMemento(memento);
     }
 }

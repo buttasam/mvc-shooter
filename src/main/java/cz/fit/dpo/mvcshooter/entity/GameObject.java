@@ -3,13 +3,15 @@ package cz.fit.dpo.mvcshooter.entity;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitable;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
+import java.io.Serializable;
+
 /**
  *
  * Zakladni abstraktri trida pro herni objekt.
  *
  * @author Samuel Butta
  */
-public class GameObject implements Visitable {
+public class GameObject implements Visitable, Serializable {
 
     protected int x, y;
 
