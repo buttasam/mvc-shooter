@@ -1,6 +1,7 @@
 package cz.fit.dpo.mvcshooter.entity;
 
 import cz.fit.dpo.mvcshooter.model.helper.Info;
+import cz.fit.dpo.mvcshooter.model.strategy.Strategy;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
@@ -17,7 +18,6 @@ public class Missile extends GameObject {
     private double time = 0;
     private int angle;
 
-    private double BALISTIC_COEFFICIENT = 0.003;
 
     private static final int SPEED_LIMIT = 100;
 
@@ -40,12 +40,10 @@ public class Missile extends GameObject {
         }
     }
 
-    public void move() {
+    public void move(Strategy strategy) {
         time += 1;
-
-        double radians = Math.toRadians(angle);
-        x = (int) ((startX + (speed) * time * Math.cos(radians)) - BALISTIC_COEFFICIENT * (time * time));
-        y = (int) ((startY + (speed) * time * Math.sin(radians)) + 0.01 * (time * time));
+        x = strategy.calculateX(startX, angle, speed, time);
+        y = strategy.calculateY(startY, angle, speed, time);
     }
 
     @Override

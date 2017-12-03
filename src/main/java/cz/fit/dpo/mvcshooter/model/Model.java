@@ -6,6 +6,8 @@ import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
 import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
+import cz.fit.dpo.mvcshooter.model.strategy.SimpleStrategy;
+import cz.fit.dpo.mvcshooter.model.strategy.Strategy;
 import cz.fit.dpo.mvcshooter.view.Observer;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
@@ -28,6 +30,7 @@ public class Model implements Observable {
     private List<Enemy> enemies = new ArrayList<>();
 
 
+    private Strategy strategy;
     private Missile currentMissile;
     int fpsCounter = 0;
 
@@ -36,6 +39,7 @@ public class Model implements Observable {
 
     public Model() {
         this.cannon = new Cannon(20, 240, -45);
+        this.strategy = new SimpleStrategy();
     }
 
     public Cannon getCannon() {
@@ -92,7 +96,7 @@ public class Model implements Observable {
 
     public void tick() {
         tickCount();
-        missiles.forEach(Missile::move);
+        missiles.forEach(m -> m.move(strategy));
         checkCollisions();
         removeEnemies();
         addRandomEnemy(fpsCounter);
