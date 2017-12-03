@@ -1,7 +1,7 @@
 package cz.fit.dpo.mvcshooter.entity;
 
 import cz.fit.dpo.mvcshooter.model.helper.Info;
-import cz.fit.dpo.mvcshooter.model.strategy.Strategy;
+import cz.fit.dpo.mvcshooter.model.strategy.missile.MissileStrategy;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
@@ -17,17 +17,17 @@ public class Missile extends GameObject {
     private double speed = 1;
     private double time = 0;
     private int angle;
-    private Strategy strategy;
+    private MissileStrategy missileStrategy;
 
 
     private static final int SPEED_LIMIT = 100;
 
-    public Missile(int x, int y, int angle, Strategy strategy) {
+    public Missile(int x, int y, int angle, MissileStrategy missileStrategy) {
         super(x, y);
         this.startX = x;
         this.startY = y;
         this.angle = angle;
-        this.strategy = strategy;
+        this.missileStrategy = missileStrategy;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class Missile extends GameObject {
 
     public void move() {
         time += 1;
-        x = strategy.calculateX(startX, angle, speed, time);
-        y = strategy.calculateY(startY, angle, speed, time);
+        x = missileStrategy.calculateX(startX, angle, speed, time);
+        y = missileStrategy.calculateY(startY, angle, speed, time);
     }
 
     @Override

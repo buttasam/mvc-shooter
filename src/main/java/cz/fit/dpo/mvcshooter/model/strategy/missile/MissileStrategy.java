@@ -1,9 +1,9 @@
-package cz.fit.dpo.mvcshooter.model.strategy;
+package cz.fit.dpo.mvcshooter.model.strategy.missile;
 
 /**
  * @author Samuel Butta
  */
-public interface Strategy {
+public interface MissileStrategy {
 
     public int calculateX(int startX, int angle, double speed, double time);
 

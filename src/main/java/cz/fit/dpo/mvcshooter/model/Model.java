@@ -4,14 +4,16 @@ import cz.fit.dpo.mvcshooter.entity.Cannon;
 import cz.fit.dpo.mvcshooter.entity.Enemy;
 import cz.fit.dpo.mvcshooter.entity.GameObject;
 import cz.fit.dpo.mvcshooter.entity.Missile;
+import cz.fit.dpo.mvcshooter.model.factory.AbstractModeFactory;
+import cz.fit.dpo.mvcshooter.model.factory.RealisticModeFactory;
 import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.model.state.CannonState;
 import cz.fit.dpo.mvcshooter.model.state.DoubleShootingState;
-import cz.fit.dpo.mvcshooter.model.state.SingleShootingState;
-import cz.fit.dpo.mvcshooter.model.strategy.RealisticStrategy;
-import cz.fit.dpo.mvcshooter.model.strategy.SimpleStrategy;
-import cz.fit.dpo.mvcshooter.model.strategy.Strategy;
+import cz.fit.dpo.mvcshooter.model.strategy.enemy.EnemyStrategy;
+import cz.fit.dpo.mvcshooter.model.strategy.missile.MissileStrategy;
+import cz.fit.dpo.mvcshooter.model.strategy.missile.RealisticMissileStrategy;
+import cz.fit.dpo.mvcshooter.model.strategy.missile.SimpleMissileStrategy;
 import cz.fit.dpo.mvcshooter.view.Observer;
 import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
@@ -34,7 +36,9 @@ public class Model implements Observable {
     private List<Enemy> enemies = new ArrayList<>();
 
 
-    private Strategy strategy;
+    private MissileStrategy missileStrategy;
+    private EnemyStrategy enemyStrategy;
+
     private CannonState cannonState;
     private List<Missile> currentMissiles = new ArrayList<>();
     int fpsCounter = 0;
@@ -44,7 +48,12 @@ public class Model implements Observable {
 
     public Model() {
         this.cannon = new Cannon(20, 240, -45);
-        this.strategy = new SimpleStrategy();
+
+        AbstractModeFactory factory = new RealisticModeFactory(); // Hardcoded
+
+        this.missileStrategy = factory.createMissileStrategy();
+        this.enemyStrategy = factory.createEnemyStrategy();
+
         this.cannonState = new DoubleShootingState();
     }
 
@@ -87,7 +96,7 @@ public class Model implements Observable {
         } else {
             Info.currentSpeed = 1;
             for (int i = 0; i < cannonState.numberOfMissiles(); i++) {
-                currentMissiles.add(new Missile(cannon.getX(), cannon.getY(), cannon.getAngle() / (i + 1), this.strategy));
+                currentMissiles.add(new Missile(cannon.getX(), cannon.getY(), cannon.getAngle() / (i + 1), this.missileStrategy));
             }
         }
     }
@@ -105,6 +114,7 @@ public class Model implements Observable {
     public void tick() {
         tickCount();
         missiles.forEach(Missile::move);
+        enemies.forEach(Enemy::move);
         checkCollisions();
         removeEnemies();
         addRandomEnemy(fpsCounter);
@@ -152,7 +162,7 @@ public class Model implements Observable {
         Random r = new Random();
 
         if (Probability.oneThird() && fpsCounter % 100 == 0) {
-            Enemy enemy = new Enemy(r.nextInt(WindowConfig.WINDOW_WIDTH), r.nextInt(WindowConfig.WINDOW_WIDTH));
+            Enemy enemy = new Enemy(r.nextInt(WindowConfig.WINDOW_WIDTH), r.nextInt(WindowConfig.WINDOW_WIDTH), enemyStrategy);
             enemies.add(enemy);
         }
     }
@@ -166,12 +176,12 @@ public class Model implements Observable {
     }
 
     public void setRealisticStrategy() {
-        this.strategy = new RealisticStrategy();
+        this.missileStrategy = new RealisticMissileStrategy();
         Info.strategy = "Realistic";
     }
 
     public void setSimpleStrategy() {
-        this.strategy = new SimpleStrategy();
+        this.missileStrategy = new SimpleMissileStrategy();
         Info.strategy = "Simple";
     }
 }

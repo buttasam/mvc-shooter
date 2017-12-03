@@ -1,9 +1,9 @@
-package cz.fit.dpo.mvcshooter.model.strategy;
+package cz.fit.dpo.mvcshooter.model.strategy.missile;
 
 /**
  * @author Samuel Butta
  */
-public class RealisticStrategy implements Strategy {
+public class RealisticMissileStrategy implements MissileStrategy {
 
     private double BALISTIC_COEFFICIENT = 0.003;
 

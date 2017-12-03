@@ -1,9 +1,9 @@
-package cz.fit.dpo.mvcshooter.model.strategy;
+package cz.fit.dpo.mvcshooter.model.strategy.missile;
 
 /**
  * @author Samuel Butta
  */
-public class SimpleStrategy implements Strategy {
+public class SimpleMissileStrategy implements MissileStrategy {
 
     @Override
     public int calculateX(int startX, int angle, double speed, double time) {

@@ -1,6 +1,7 @@
 package cz.fit.dpo.mvcshooter.entity;
 
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
+import cz.fit.dpo.mvcshooter.model.strategy.enemy.EnemyStrategy;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
 /**
@@ -11,10 +12,13 @@ public class Enemy extends GameObject {
     private EnemyType enemyType;
     private boolean alive;
     private Missile missileCollided;
+    private EnemyStrategy strategy;
 
-    public Enemy(int x, int y) {
+    public Enemy(int x, int y, EnemyStrategy strategy) {
         super(x, y);
         alive = true;
+        this.strategy = strategy;
+
         if (Probability.oneHalf()) {
             enemyType = EnemyType.ADVANCED;
         } else {
@@ -64,6 +68,11 @@ public class Enemy extends GameObject {
                 setAlive(false);
                 break;
         }
+    }
+
+    public void move() {
+        x = strategy.calculateX(x);
+        y = strategy.calculateY(y);
     }
 
     @Override
