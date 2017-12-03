@@ -12,9 +12,9 @@ public class Probability {
         return ((r.nextInt(2) + 1) % 2) == 0;
     }
 
-    public static boolean oneThird() {
+    public static boolean oneTwoHundred() {
         Random r = new Random();
-        return ((r.nextInt(3) + 1) % 3) == 0;
+        return ((r.nextInt(200) + 1) % 200) == 0;
     }
 
     public static int plusMinusOneOrZero() {

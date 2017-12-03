@@ -11,8 +11,6 @@ import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.model.memento.Memento;
 import cz.fit.dpo.mvcshooter.model.memento.MementoStorage;
 import cz.fit.dpo.mvcshooter.model.memento.Originator;
-import cz.fit.dpo.mvcshooter.model.state.CannonState;
-import cz.fit.dpo.mvcshooter.model.state.DoubleShootingState;
 import cz.fit.dpo.mvcshooter.model.strategy.enemy.EnemyStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.missile.MissileStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.missile.RealisticMissileStrategy;
@@ -44,9 +42,6 @@ public class Model implements Observable, Originator {
 
     private MissileStrategy missileStrategy;
     private EnemyStrategy enemyStrategy;
-
-    int fpsCounter = 0;
-
 
     List<Observer> observers = new ArrayList<>();
 
@@ -117,12 +112,11 @@ public class Model implements Observable, Originator {
     }
 
     public void tick() {
-        tickCount();
         missiles.forEach(Missile::move);
         enemies.forEach(Enemy::move);
         checkCollisions();
         removeEnemies();
-        addRandomEnemy(fpsCounter);
+        addRandomEnemy();
         notifyObservers();
         cleanUp();
     }
@@ -138,13 +132,6 @@ public class Model implements Observable, Originator {
         }));
 
 
-    }
-
-    private void tickCount() {
-        fpsCounter++;
-        if (fpsCounter == Integer.MAX_VALUE) {
-            fpsCounter = 0;
-        }
     }
 
 
@@ -163,10 +150,9 @@ public class Model implements Observable, Originator {
     }
 
 
-    private void addRandomEnemy(int fpsCounter) {
+    private void addRandomEnemy() {
         Random r = new Random();
-
-        if (Probability.oneThird() && fpsCounter % 100 == 0) {
+        if (Probability.oneTwoHundred()) {
             Enemy enemy = new Enemy(r.nextInt(WindowConfig.WINDOW_WIDTH), r.nextInt(WindowConfig.WINDOW_WIDTH), enemyStrategy);
             enemies.add(enemy);
         }
