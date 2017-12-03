@@ -45,7 +45,6 @@ public class Model implements Observable, Originator {
     private MissileStrategy missileStrategy;
     private EnemyStrategy enemyStrategy;
 
-    private CannonState cannonState;
     int fpsCounter = 0;
 
 
@@ -60,8 +59,6 @@ public class Model implements Observable, Originator {
 
         this.missileStrategy = factory.createMissileStrategy();
         this.enemyStrategy = factory.createEnemyStrategy();
-
-        this.cannonState = new DoubleShootingState();
     }
 
     public Cannon getCannon() {
@@ -102,7 +99,8 @@ public class Model implements Observable, Originator {
             currentMissiles.forEach(Missile::increaseSpeed);
         } else {
             Info.currentSpeed = 1;
-            for (int i = 0; i < cannonState.numberOfMissiles(); i++) {
+            System.out.println(cannon.getCannonState().numberOfMissiles());
+            for (int i = 0; i < cannon.getCannonState().numberOfMissiles(); i++) {
                 currentMissiles.add(new Missile(cannon.getX(), cannon.getY(), cannon.getAngle() / (i + 1), this.missileStrategy));
             }
         }
@@ -155,7 +153,7 @@ public class Model implements Observable, Originator {
     }
 
     private void removeMissiles() {
-        List<Missile> missileToRemove = missiles.stream().filter(m -> m.isOutOfWindow()).collect(Collectors.toList());
+        List<Missile> missileToRemove = missiles.stream().filter(Missile::isOutOfWindow).collect(Collectors.toList());
         missiles.removeAll(missileToRemove);
     }
 
@@ -216,5 +214,9 @@ public class Model implements Observable, Originator {
         memento.setMissiles(SerializationUtils.clone(missiles));
 
         mementoStorage.saveMemento(memento);
+    }
+
+    public void changeCannonState() {
+        cannon.changeState();
     }
 }

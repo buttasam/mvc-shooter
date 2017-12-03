@@ -52,6 +52,9 @@ public class MainController extends KeyAdapter {
             case KeyEvent.VK_F3:
                 model.loadMemento();
                 break;
+            case KeyEvent.VK_SHIFT:
+                model.changeCannonState();
+                break;
             default:
         }
 

@@ -1,5 +1,8 @@
 package cz.fit.dpo.mvcshooter.entity;
 
+import cz.fit.dpo.mvcshooter.model.state.CannonState;
+import cz.fit.dpo.mvcshooter.model.state.DoubleShootingState;
+import cz.fit.dpo.mvcshooter.model.state.SingleShootingState;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
 
 /**
@@ -11,10 +14,13 @@ public class Cannon extends GameObject {
 
     private int angle;
 
+    private CannonState cannonState;
+
 
     public Cannon(int x, int y, int angle) {
         super(x, y);
         this.angle = angle;
+        cannonState = new SingleShootingState();
     }
 
     public int getX() {
@@ -35,35 +41,37 @@ public class Cannon extends GameObject {
 
 
     public void rotateLeft() {
-        if(angle > - 90) {
+        if (angle > -90) {
             angle -= 1;
         }
     }
 
     public void rotateRight() {
-        if(angle < 90) {
+        if (angle < 90) {
             angle += 1;
         }
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     public int getAngle() {
         return angle;
     }
 
-    public void setAngle(int angle) {
-        this.angle = angle;
+    public CannonState getCannonState() {
+        return cannonState;
     }
 
     @Override
     public void accept(Visitor visitor) {
         visitor.visitCannon(this);
+    }
+
+    public void changeState() {
+        if (cannonState instanceof SingleShootingState) {
+            cannonState = new DoubleShootingState();
+        } else if (cannonState instanceof DoubleShootingState) {
+            cannonState = new SingleShootingState();
+        } else {
+            throw new UnsupportedOperationException();
+        }
     }
 }
