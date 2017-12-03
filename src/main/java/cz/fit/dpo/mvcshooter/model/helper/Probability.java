@@ -7,9 +7,13 @@ import java.util.Random;
  */
 public class Probability {
 
-    public static boolean oneHalf() {
+    public static boolean oneTo(int number) {
         Random r = new Random();
-        return ((r.nextInt(2) + 1) % 2) == 0;
+        return ((r.nextInt(number) + 1) % number) == 0;
+    }
+
+    public static boolean oneHalf() {
+        return oneTo(2);
     }
 
     public static boolean oneTwoHundred() {

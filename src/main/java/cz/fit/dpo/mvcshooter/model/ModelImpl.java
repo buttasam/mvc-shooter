@@ -145,7 +145,9 @@ public class ModelImpl implements Model {
     }
 
     public void removeEnemies() {
-        List<Enemy> enemiesToDelete = enemies.stream().filter(e -> !e.isAlive()).collect(Collectors.toList());
+        List<Enemy> enemiesToDelete = enemies.stream()
+                .filter(e -> !e.isAlive() || e.isOutOfWindow())
+                .collect(Collectors.toList());
         enemies.removeAll(enemiesToDelete);
     }
 

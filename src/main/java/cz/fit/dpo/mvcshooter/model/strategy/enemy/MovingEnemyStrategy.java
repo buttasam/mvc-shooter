@@ -8,13 +8,17 @@ import java.io.Serializable;
  * @author Samuel Butta
  */
 public class MovingEnemyStrategy implements EnemyStrategy, Serializable {
+
+
     @Override
-    public int calculateX(int x) {
-        return x + Probability.plusMinusOneOrZero();
+    public int calculateX(int x, int xCounter, int xDirection) {
+
+        return x + xDirection;
     }
 
     @Override
-    public int calculateY(int y) {
-        return y + Probability.plusMinusOneOrZero();
+    public int calculateY(int y, int yCounter, int yDirection) {
+        return y + yDirection;
     }
+
 }

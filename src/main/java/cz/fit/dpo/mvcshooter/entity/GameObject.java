@@ -2,11 +2,11 @@ package cz.fit.dpo.mvcshooter.entity;
 
 import cz.fit.dpo.mvcshooter.model.visitor.Visitable;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
+import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
 import java.io.Serializable;
 
 /**
- *
  * Zakladni abstraktri trida pro herni objekt.
  *
  * @author Samuel Butta
@@ -38,6 +38,13 @@ public class GameObject implements Visitable, Serializable {
 
     @Override
     public void accept(Visitor visitor) {
+    }
 
+    public boolean isOutOfWindow() {
+        if (x < 0 || y < 0 || x > WindowConfig.WINDOW_WIDTH || y > WindowConfig.WINDOW_HEIGHT) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

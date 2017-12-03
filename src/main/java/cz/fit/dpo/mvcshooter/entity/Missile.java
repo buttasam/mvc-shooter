@@ -56,12 +56,4 @@ public class Missile extends GameObject {
                 ", y=" + y +
                 '}';
     }
-
-    public boolean isOutOfWindow() {
-        if (x < 0 || y < 0 || x > WindowConfig.WINDOW_WIDTH || y > WindowConfig.WINDOW_HEIGHT) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
