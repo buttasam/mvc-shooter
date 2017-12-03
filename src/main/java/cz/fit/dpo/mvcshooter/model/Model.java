@@ -160,9 +160,11 @@ public class Model implements Observable {
 
     public void setRealisticStrategy() {
         this.strategy = new RealisticStrategy();
+        Info.strategy = "Realistic";
     }
 
     public void setSimpleStrategy() {
         this.strategy = new SimpleStrategy();
+        Info.strategy = "Simple";
     }
 }

@@ -9,4 +9,5 @@ public class Info {
 
     public static int currentSpeed = 1;
 
+    public static String strategy = "Simple";
 }

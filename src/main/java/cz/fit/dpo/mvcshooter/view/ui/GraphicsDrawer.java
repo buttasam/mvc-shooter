@@ -71,7 +71,8 @@ public class GraphicsDrawer implements Visitor {
 
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + Info.score, 5, 20);
-        g.drawString("Speed: " + Info.currentSpeed, 5, 45);
+        g.drawString("Speed: " + Info.currentSpeed, 130, 20);
+        g.drawString("Strategy: " + Info.strategy, 260, 20);
 
         // for smooth rendering
         Toolkit.getDefaultToolkit().sync();
