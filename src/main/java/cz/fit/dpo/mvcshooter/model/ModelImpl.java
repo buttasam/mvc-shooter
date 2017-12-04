@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 /**
@@ -35,9 +36,9 @@ public class ModelImpl implements Model {
      * Stored objects
      */
     private Cannon cannon;
-    private ArrayList<Missile> missiles = new ArrayList<>();
-    private ArrayList<Enemy> enemies = new ArrayList<>();
-    private ArrayList<Missile> currentMissiles = new ArrayList<>();
+    private List<Missile> missiles = new ArrayList<>();
+    private List<Enemy> enemies = new ArrayList<>();
+    private List<Missile> currentMissiles = new ArrayList<>();
 
 
     private MissileStrategy missileStrategy;
@@ -204,9 +205,9 @@ public class ModelImpl implements Model {
     public synchronized void saveMemento() {
         Memento memento = new Memento();
         memento.setCannon(SerializationUtils.clone(cannon));
-        memento.setCurrentMissiles(SerializationUtils.clone(currentMissiles));
-        memento.setEnemies(SerializationUtils.clone(enemies));
-        memento.setMissiles(SerializationUtils.clone(missiles));
+        memento.setCurrentMissiles(SerializationUtils.clone(new CopyOnWriteArrayList<>(currentMissiles)));
+        memento.setEnemies(SerializationUtils.clone(new CopyOnWriteArrayList<>(enemies)));
+        memento.setMissiles(SerializationUtils.clone(new CopyOnWriteArrayList<>(missiles)));
 
         mementoStorage.saveMemento(memento);
     }

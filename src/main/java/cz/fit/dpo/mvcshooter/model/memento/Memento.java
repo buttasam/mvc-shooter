@@ -6,6 +6,7 @@ import cz.fit.dpo.mvcshooter.entity.Missile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Samuel Butta
@@ -13,9 +14,9 @@ import java.util.List;
 public class Memento {
 
     private Cannon cannon;
-    private ArrayList<Missile> missiles = new ArrayList<>();
-    private ArrayList<Enemy> enemies = new ArrayList<>();
-    private ArrayList<Missile> currentMissiles = new ArrayList<>();
+    private List<Missile> missiles = new CopyOnWriteArrayList<>();
+    private List<Enemy> enemies = new CopyOnWriteArrayList<>();
+    private List<Missile> currentMissiles = new CopyOnWriteArrayList<>();
 
     public Memento() {
     }
@@ -30,27 +31,27 @@ public class Memento {
     }
 
 
-    public ArrayList<Missile> getMissiles() {
+    public List<Missile> getMissiles() {
         return missiles;
     }
 
-    public void setMissiles(ArrayList<Missile> missiles) {
+    public void setMissiles(List<Missile> missiles) {
         this.missiles = missiles;
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public List<Enemy> getEnemies() {
         return enemies;
     }
 
-    public void setEnemies(ArrayList<Enemy> enemies) {
+    public void setEnemies(List<Enemy> enemies) {
         this.enemies = enemies;
     }
 
-    public ArrayList<Missile> getCurrentMissiles() {
+    public List<Missile> getCurrentMissiles() {
         return currentMissiles;
     }
 
-    public void setCurrentMissiles(ArrayList<Missile> currentMissiles) {
+    public void setCurrentMissiles(List<Missile> currentMissiles) {
         this.currentMissiles = currentMissiles;
     }
 }
