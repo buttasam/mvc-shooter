@@ -3,8 +3,6 @@ package cz.fit.dpo.mvcshooter.model.helper;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * @author Samuel Butta
  */

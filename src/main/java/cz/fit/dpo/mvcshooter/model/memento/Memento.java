@@ -17,6 +17,7 @@ public class Memento {
     private List<Missile> missiles = new CopyOnWriteArrayList<>();
     private List<Enemy> enemies = new CopyOnWriteArrayList<>();
     private List<Missile> currentMissiles = new CopyOnWriteArrayList<>();
+    private int score;
 
     public Memento() {
     }
@@ -53,5 +54,13 @@ public class Memento {
 
     public void setCurrentMissiles(List<Missile> currentMissiles) {
         this.currentMissiles = currentMissiles;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }

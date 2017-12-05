@@ -192,6 +192,7 @@ public class ModelImpl implements Model {
             currentMissiles = memento.getCurrentMissiles();
             enemies = memento.getEnemies();
             missiles = memento.getMissiles();
+            GameInfo.getInstance().setScore(memento.getScore());
 
             notifyObservers();
         } catch (EmptyStackException e) {
@@ -206,6 +207,7 @@ public class ModelImpl implements Model {
         memento.setCurrentMissiles(SerializationUtils.clone(new CopyOnWriteArrayList<>(currentMissiles)));
         memento.setEnemies(SerializationUtils.clone(new CopyOnWriteArrayList<>(enemies)));
         memento.setMissiles(SerializationUtils.clone(new CopyOnWriteArrayList<>(missiles)));
+        memento.setScore(GameInfo.getInstance().getScore());
 
         mementoStorage.saveMemento(memento);
     }

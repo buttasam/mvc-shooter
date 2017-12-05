@@ -35,6 +35,10 @@ public class GameInfo {
         return score;
     }
 
+    public synchronized void setScore(int score) {
+        this.score = score;
+    }
+
     public int getCurrentSpeed() {
         return currentSpeed;
     }
