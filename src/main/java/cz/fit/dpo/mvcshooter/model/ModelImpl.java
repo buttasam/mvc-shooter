@@ -7,11 +7,11 @@ import cz.fit.dpo.mvcshooter.entity.Missile;
 import cz.fit.dpo.mvcshooter.model.command.GameCommand;
 import cz.fit.dpo.mvcshooter.model.factory.AbstractModeFactory;
 import cz.fit.dpo.mvcshooter.model.factory.RealisticModeFactory;
-import cz.fit.dpo.mvcshooter.model.helper.Info;
 import cz.fit.dpo.mvcshooter.model.helper.Probability;
 import cz.fit.dpo.mvcshooter.model.memento.Memento;
 import cz.fit.dpo.mvcshooter.model.memento.MementoStorage;
 import cz.fit.dpo.mvcshooter.model.observer.Observer;
+import cz.fit.dpo.mvcshooter.model.singleton.GameInfo;
 import cz.fit.dpo.mvcshooter.model.strategy.enemy.EnemyStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.missile.MissileStrategy;
 import cz.fit.dpo.mvcshooter.model.strategy.missile.RealisticMissileStrategy;
@@ -94,7 +94,6 @@ public class ModelImpl implements Model {
         if (!currentMissiles.isEmpty()) {
             currentMissiles.forEach(Missile::increaseSpeed);
         } else {
-            Info.currentSpeed = 1;
             for (int i = 0; i < cannon.getCannonState().numberOfMissiles(); i++) {
                 currentMissiles.add(new Missile(cannon.getX(), cannon.getY(), cannon.getAngle() / (i + 1), this.missileStrategy));
             }
@@ -102,6 +101,7 @@ public class ModelImpl implements Model {
     }
 
     public void missileReleased() {
+        GameInfo.getInstance().nullCurrentSpeed();
         missiles.addAll(currentMissiles);
         currentMissiles = new ArrayList<>();
     }
@@ -133,7 +133,7 @@ public class ModelImpl implements Model {
             if ((e.collide(m.getX(), m.getY())) && e.getMissileCollided() != m) {
                 e.handleCollision();
                 e.setMissileCollided(m);
-                Info.score++;
+                GameInfo.getInstance().increaseScore();
             }
         }));
 
@@ -178,12 +178,10 @@ public class ModelImpl implements Model {
 
     public void setRealisticStrategy() {
         this.missileStrategy = new RealisticMissileStrategy();
-        Info.strategy = "Realistic";
     }
 
     public void setSimpleStrategy() {
         this.missileStrategy = new SimpleMissileStrategy();
-        Info.strategy = "Simple";
     }
 
     @Override

@@ -1,9 +1,8 @@
 package cz.fit.dpo.mvcshooter.entity;
 
-import cz.fit.dpo.mvcshooter.model.helper.Info;
+import cz.fit.dpo.mvcshooter.model.singleton.GameInfo;
 import cz.fit.dpo.mvcshooter.model.strategy.missile.MissileStrategy;
 import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
-import cz.fit.dpo.mvcshooter.view.ui.WindowConfig;
 
 /**
  * Reprezentace strely.
@@ -38,7 +37,7 @@ public class Missile extends GameObject {
     public void increaseSpeed() {
         if (speed < SPEED_LIMIT) {
             speed += 0.05;
-            Info.currentSpeed += 1;
+            GameInfo.getInstance().increaseCurrentSpeed();
         }
     }
 
