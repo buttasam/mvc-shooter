@@ -10,9 +10,11 @@ import cz.fit.dpo.mvcshooter.model.visitor.Visitor;
  */
 public class Cannon extends GameObject {
 
-    private int speed = 3;
 
     private int angle;
+
+    private final int speed = 3;
+    private final int angleSpeed = 5;
 
     private CannonState cannonState;
 
@@ -42,13 +44,13 @@ public class Cannon extends GameObject {
 
     public void rotateLeft() {
         if (angle > -90) {
-            angle -= 1;
+            angle -= angleSpeed;
         }
     }
 
     public void rotateRight() {
         if (angle < 90) {
-            angle += 1;
+            angle += angleSpeed;
         }
     }
 
@@ -73,5 +75,13 @@ public class Cannon extends GameObject {
         } else {
             throw new UnsupportedOperationException();
         }
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getAngleSpeed() {
+        return angleSpeed;
     }
 }
