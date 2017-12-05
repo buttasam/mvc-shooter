@@ -46,12 +46,15 @@ public class Cannon extends GameObject {
         if (angle > -90) {
             angle -= angleSpeed;
         }
+
+        System.out.println("cannon angle set to: " + angle);
     }
 
     public void rotateRight() {
         if (angle < 90) {
             angle += angleSpeed;
         }
+        System.out.println("cannon angle set to: " + angle);
     }
 
     public int getAngle() {
