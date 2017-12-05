@@ -2,7 +2,6 @@ package cz.fit.dpo.mvcshooter;
 
 import cz.fit.dpo.mvcshooter.controller.MainController;
 import cz.fit.dpo.mvcshooter.model.Model;
-import cz.fit.dpo.mvcshooter.model.ModelImpl;
 import cz.fit.dpo.mvcshooter.model.ProxyModel;
 import cz.fit.dpo.mvcshooter.view.MainView;
 
